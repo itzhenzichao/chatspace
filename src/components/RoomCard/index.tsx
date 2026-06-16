@@ -11,6 +11,7 @@
  * 知识点：Ant Design Badge、Props 接口定义、条件渲染、事件回调 onClick
  */
 
+import { memo } from 'react';
 import { Badge } from 'antd';
 import { formatTime } from '../../utils/format';
 
@@ -25,7 +26,12 @@ interface RoomCardProps {
   onClick: () => void;           // 点击回调函数
 }
 
-export default function RoomCard({
+/**
+ * RoomCard 组件 —— 使用 React.memo 包裹避免不必要的重新渲染
+ * 大部分 props 是原始类型，浅比较可有效判断变化
+ * onClick 是函数类型，父组件需注意用 useCallback 稳定引用
+ */
+const RoomCard = memo(function RoomCard({
   name,
   avatar,
   lastMessageContent,
@@ -77,4 +83,6 @@ export default function RoomCard({
       )}
     </div>
   );
-}
+});
+
+export default RoomCard;

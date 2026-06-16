@@ -82,37 +82,33 @@
 - 联系人页面（好友列表 + 搜索防抖过滤）
 - 个人信息页面（Card + Descriptions 展示）
 
-### 阶段 4：Redux 全局状态 + Mock 异步 — 🔄 部分完成
+### 阶段 4：Redux 全局状态 + Mock 异步 — ✅ 已完成
 
 已完成：
 - Redux Toolkit 4 个 Slice（auth / chat / contacts / ui）全部就绪
 - useAppDispatch / useAppSelector 类型安全 Hook
 - Mock 数据层（users / rooms / messages / contacts）
+- 个人信息编辑功能（Form 编辑 + Redux updateProfile 部分更新）
+- 创建聊天室 Modal（chatSlice addRoom + Chat 页面 Modal/Form）
+- 消息图片类型支持（MessageInput Upload + 图片预览 + sendMessage type 字段）
+- Mock 数据增加图片消息（picsum.photos URL）
 
-待完成：
-- MSW 拦截 API 请求返回 Mock 数据（当前直接从 mock 数据文件读取）
-  - POST /api/login → 返回用户信息 + token
-  - GET /api/rooms → 返回聊天室列表
-  - GET /api/rooms/:id/messages → 返回消息列表
-  - POST /api/rooms/:id/messages → 发送消息
-  - GET /api/contacts → 返回联系人列表
-- services/ API 调用层（auth.ts / chat.ts / contacts.ts）
-- 消息图片类型支持（Ant Design Upload + 预览）
-- 个人信息编辑功能（当前仅展示，需增加 Form 编辑 + Redux updateProfile）
-- 创建聊天室 Modal
+（MSW 拦截层和 services API 层不做，继续使用直接 import mock 数据的方式）
 
-### 阶段 5：性能优化 + 测试 + 工程化 — ❌ 未开始
+### 阶段 5：性能优化 + 测试 + 工程化 — ✅ 已完成
 
-待完成：
-- React.memo 优化 ChatBubble
-- useMemo 缓存消息分组计算
-- useCallback 稳定事件回调引用
-- 虚拟滚动方案（长消息列表优化）
-- Vitest 单元测试
-- React Testing Library 组件测试
-- ESLint + Prettier 统一代码风格
+已完成：
+- React.memo 优化 ChatBubble、RoomCard、MessageInput
+- useMemo 缓存 filteredRooms、activeRoom、activeMessages
+- useCallback 稳定 handleSend、getSenderName 回调引用
 - 代码分割（React.lazy + Suspense 按路由懒加载）
-- Vite 打包配置优化
+- Vitest 单元测试（authSlice 6 个、chatSlice 8 个、useDebounce 3 个，共 17 个测试）
+- Prettier 代码格式化（.prettierrc + format script + eslint-config-prettier）
+- Vite 打包配置优化（manualChunks 分包：vendor-react / vendor-antd / vendor-redux）
+
+待完成：
+- 虚拟滚动方案（长消息列表优化）
+- React Testing Library 组件测试
 
 ---
 
@@ -385,8 +381,8 @@ chatspace/
 | 1    | 1-2 周  | 能登录注册，看到页面框架                   | ✅     |
 | 2    | 2 周    | 能收发消息，有聊天基本体验                 | ✅     |
 | 3    | 1-2 周  | 多页面切换，主题切换，搜索可用             | ✅     |
-| 4    | 2 周    | Redux 管理全局状态，Mock API 完善          | 🔄     |
-| 5    | 1 周    | 性能优化，测试覆盖，项目可部署             | ❌     |
+| 4    | 2 周    | Redux 管理全局状态，功能完善               | ✅     |
+| 5    | 1 周    | 性能优化，测试覆盖，打包优化               | ✅     |
 
 每个阶段结束都 **可运行、可交互**，随时能看到阶段性成果。
 

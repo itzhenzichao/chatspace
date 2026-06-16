@@ -11,19 +11,31 @@
  * 知识点：条件渲染、联合类型 MessageType、Props 接口定义、Ant Design Tag
  */
 
+import { memo } from 'react';
 import { Tag } from 'antd';
 import { formatTime } from '../../utils/format';
-
+import { useNavigate } from 'react-router-dom';
 /** ChatBubble 的 Props 类型 */
 interface ChatBubbleProps {
   content: string;                   // 消息内容（文字或图片 URL）
   timestamp: number;                 // 发送时间戳（毫秒）
   isSelf: boolean;                   // 是否是自己发的消息
   senderName: string;                // 发送者昵称
+  senderId: string;                  // 发送者用户 ID（点击昵称跳转时传参）
   type: 'text' | 'image' | 'system'; // 消息类型
 }
 
-export default function ChatBubble({ content, timestamp, isSelf, senderName, type }: ChatBubbleProps) {
+/**
+ * ChatBubble 组件 —— 使用 React.memo 包裹避免不必要的重新渲染
+ * 因为 props 全部是原始类型（string/number/boolean），浅比较即可准确判断变化
+ * 在消息列表中每条消息都会渲染此组件，memo 可有效防止新增一条消息时所有气泡重渲染
+ */
+const ChatBubble = memo(function ChatBubble({ content, timestamp, isSelf, senderName, senderId, type }: ChatBubbleProps) {
+  const navigate = useNavigate();
+  /** 点击发送者昵称跳转到对应的用户信息页 */
+  const handleToUserInfo = () => {
+    navigate(`/profile/${senderId}`);   // 路由参数传递用户 ID
+  };
   // 系统通知消息：居中显示，使用 Ant Design Tag 样式
   if (type === 'system') {
     return (
@@ -53,7 +65,7 @@ export default function ChatBubble({ content, timestamp, isSelf, senderName, typ
       >
         {/* 仅他人消息显示发送者昵称 */}
         {!isSelf && (
-          <div style={{ fontSize: 12, color: '#999', marginBottom: 4 }}>{senderName}</div>
+          <div style={{ fontSize: 12, color: '#999', marginBottom: 4, cursor: 'pointer' }} onClick={handleToUserInfo}>{senderName}</div>
         )}
         {/* 图片消息渲染 img 标签，文字消息直接显示文本 */}
         {type === 'image' ? (
@@ -68,4 +80,6 @@ export default function ChatBubble({ content, timestamp, isSelf, senderName, typ
       </div>
     </div>
   );
-}
+});
+
+export default ChatBubble;

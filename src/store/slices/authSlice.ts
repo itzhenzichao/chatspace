@@ -15,7 +15,7 @@ import { TOKEN_KEY, USER_KEY } from '../../utils/constants';
 import { mockUsers } from '../../mocks/data/users';
 
 /** 认证模块的状态类型 */
-interface AuthState {
+export interface AuthState {
   user: User | null;        // 当前登录用户信息，未登录为 null
   token: string | null;     // 登录 Token，未登录为 null
   isAuthenticated: boolean; // 是否已登录

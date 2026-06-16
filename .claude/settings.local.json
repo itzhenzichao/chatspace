@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p D:/lianxi/chatspace/src/mocks/handlers)",
+      "Bash(mkdir -p D:/lianxi/chatspace/src/services)",
+      "Bash(npm install *)",
+      "Bash(mkdir -p D:/lianxi/chatspace/src/store/slices/__tests__)",
+      "Bash(mkdir -p D:/lianxi/chatspace/src/hooks/__tests__)",
+      "Bash(npx vitest *)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}

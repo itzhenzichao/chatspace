@@ -76,6 +76,14 @@ export const mockMessages: Message[] = [
     content: '欢迎欢迎！',
     timestamp: now - 600000,       // 10分钟前
   },
+  {
+    id: 'm9',
+    roomId: 'r1',
+    senderId: 'u2',
+    type: 'image',            // 图片消息
+    content: 'https://picsum.photos/300/200?random=1',  // 随机图片 URL
+    timestamp: now - 500000,       // 约8分钟前
+  },
 
   // ===== 私聊消息 (r3) —— 与李四的对话 =====
   {
@@ -161,5 +169,13 @@ export const mockMessages: Message[] = [
     type: 'text',
     content: '我也外卖，拼单吗',
     timestamp: now - 6400000,
+  },
+  {
+    id: 'm45',
+    roomId: 'r4',
+    senderId: 'u3',
+    type: 'image',            // 图片消息
+    content: 'https://picsum.photos/300/200?random=2',  // 随机图片 URL
+    timestamp: now - 6200000,
   },
 ];

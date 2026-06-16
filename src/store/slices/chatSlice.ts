@@ -7,20 +7,21 @@
  *
  * 包含的 actions:
  * - setActiveRoom: 切换当前聊天室，同时清除该聊天室的未读计数
- * - sendMessage: 发送消息（当前用户发送）
+ * - sendMessage: 发送消息（当前用户发送，支持文字和图片类型）
  * - receiveMessage: 接收消息（模拟他人发来或系统推送）
  * - clearActiveRoom: 清除当前激活的聊天室
+ * - addRoom: 创建新聊天室
  */
 
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { ChatRoom } from '../../types/chatroom';
-import type { Message } from '../../types/message';
+import type { ChatRoom, ChatRoomType } from '../../types/chatroom';
+import type { Message, MessageType } from '../../types/message';
 import { mockRooms } from '../../mocks/data/rooms';
 import { mockMessages } from '../../mocks/data/messages';
 
 /** 聊天模块的状态类型 */
-interface ChatState {
+export interface ChatState {
   rooms: ChatRoom[];                        // 聊天室列表
   activeRoomId: string | null;              // 当前激活的聊天室 ID
   messages: Record<string, Message[]>;       // 以 roomId 为键的消息字典
@@ -60,16 +61,17 @@ const chatSlice = createSlice({
     },
 
     /**
-     * 发送消息 —— 当前用户发送一条新文字消息
+     * 发送消息 —— 当前用户发送一条新消息（支持文字和图片类型）
      * 同时更新聊天室的 lastMessage
      */
-    sendMessage(state, action: PayloadAction<{ roomId: string; content: string; senderId: string }>) {
+    sendMessage(state, action: PayloadAction<{ roomId: string; content: string; senderId: string; type?: MessageType }>) {
       const { roomId, content, senderId } = action.payload;
+      const messageType = action.payload.type || 'text';  // 未指定类型时默认为文字
       const newMessage: Message = {
         id: `m_${Date.now()}`,   // 基于时间戳生成唯一 ID
         roomId,
         senderId,
-        type: 'text',             // 发送的消息默认为文字类型
+        type: messageType,
         content,
         timestamp: Date.now(),
       };
@@ -107,10 +109,28 @@ const chatSlice = createSlice({
     clearActiveRoom(state) {
       state.activeRoomId = null;
     },
+
+    /**
+     * 创建新聊天室 —— 根据名称和类型生成新的 ChatRoom 对象
+     * 自动生成 ID 和头像，初始化空消息列表
+     */
+    addRoom(state, action: PayloadAction<{ name: string; type: ChatRoomType }>) {
+      const newRoom: ChatRoom = {
+        id: `r_${Date.now()}`,                                       // 基于时间戳生成唯一 ID
+        name: action.payload.name,
+        avatar: `https://api.dicebear.com/7.x/identicon/svg?seed=${action.payload.name}`, // 根据名称生成头像
+        type: action.payload.type,
+        members: [],                                                  // 新聊天室暂无成员
+        unreadCount: 0,
+      };
+      state.rooms.push(newRoom);
+      // 初始化新聊天室的消息列表为空数组
+      state.messages[newRoom.id] = [];
+    },
   },
 });
 
 // 导出 actions
-export const { setActiveRoom, sendMessage, receiveMessage, clearActiveRoom } = chatSlice.actions;
+export const { setActiveRoom, sendMessage, receiveMessage, clearActiveRoom, addRoom } = chatSlice.actions;
 // 导出 reducer
 export default chatSlice.reducer;

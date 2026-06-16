@@ -41,7 +41,6 @@ export default function Layout() {
   const dispatch = useAppDispatch();    // Redux dispatch
   const user = useAppSelector((state) => state.auth.user);       // 当前用户信息
   const theme = useAppSelector((state) => state.ui.theme);       // 当前主题
-
   return (
     <AntLayout style={{ height: '100vh' }}>
       {/* 左侧侧边栏 */}
@@ -53,6 +52,7 @@ export default function Layout() {
         {/* 导航菜单：使用 inlineCollapsed 垂直折叠模式 */}
         <Menu
           mode="inline"
+          theme="dark"                        // Sider始终深色背景，菜单始终使用深色主题确保图标可见
           selectedKeys={[location.pathname]}   // 根据当前路径设置高亮项
           items={menuItems}
           onClick={({ key }) => navigate(key)}  // 点击菜单项跳转路由
