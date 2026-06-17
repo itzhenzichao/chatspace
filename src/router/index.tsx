@@ -25,6 +25,7 @@ const Login = lazy(() => import('../pages/Login'));
 const Chat = lazy(() => import('../pages/Chat'));
 const Contacts = lazy(() => import('../pages/Contacts'));
 const Profile = lazy(() => import('../pages/Profile'));
+const Test = lazy(() => import('../pages/Test'));
 
 /** Suspense 加载占位 —— 懒加载组件尚未就绪时显示 Ant Design Spin */
 const LazyFallback = () => <Spin size="large" style={{ display: 'block', margin: '100px auto' }} />;
@@ -52,17 +53,17 @@ const router = createBrowserRouter([
       { index: true, element: <Navigate to="/chat" replace /> },  // 根路径重定向到聊天页
       {
         path: 'chat',
-        element: (
+        element: ( // 聊天页面（懒加载）
           <Suspense fallback={<LazyFallback />}>
-            <Chat />        // 聊天页面（懒加载）
+            <Chat />
           </Suspense>
         ),
       },
       {
         path: 'contacts',
-        element: (
-          <Suspense fallback={<LazyFallback />}>
-            <Contacts />     // 联系人页面（懒加载）
+        element: (//联系人页面（懒加载）
+          <Suspense fallback={<LazyFallback />}> 
+            <Contacts /> 
           </Suspense>
         ),
       },
@@ -70,8 +71,15 @@ const router = createBrowserRouter([
         path: 'profile/:userId?',      // userId 可选 —— 不传则显示当前登录用户
         element: (
           <Suspense fallback={<LazyFallback />}>
-            <Profile />      // 个人信息页面（懒加载）
+            <Profile /> 
           </Suspense>
+        ),
+      },
+      // 测试
+      {
+        path: 'test',      // userId 可选 —— 不传则显示当前登录用户
+        element: (
+            <Test /> 
         ),
       },
     ],
