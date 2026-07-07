@@ -21,10 +21,13 @@ import App from './App';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    {/* Redux Provider：将 store 注入组件树，所有子组件可通过 useSelector/useDispatch 访问 */}
+  // <StrictMode>
+
+  // </StrictMode>
+  <div>
+        {/* Redux Provider：将 store 注入组件树，所有子组件可通过 useSelector/useDispatch 访问 */}
     <Provider store={store}>
       <App />
     </Provider>
-  </StrictMode>
+  </div>
 );

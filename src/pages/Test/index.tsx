@@ -1,6 +1,7 @@
 import { Button } from "antd"
 import TestChild1 from "./components/TestChild"
 import { useEffect, useState } from "react"
+import QuillEditor from "../../components/Quill"
 
 export interface User {
     age?: number
@@ -33,6 +34,7 @@ export default function Test() {
     },[])
     return (
         <div>
+            <QuillEditor></QuillEditor>
             <h2>测试页面</h2>
             <div>
                 <Button onClick={add}>+</Button>{sum}{count}
