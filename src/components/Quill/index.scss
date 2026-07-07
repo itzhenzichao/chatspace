@@ -1,6 +1,42 @@
+/**
+ * QuillEditor 样式 —— 编辑器容器与自定义元素的外观定义
+ *
+ * 包含：
+ * - 编辑器容器 .lx-quill（高度、边框）
+ * - 表情 Blot .lx-expression-blot（内联展示、字号）
+ * - 表情文字 .lx-emoji-text（字号调整）
+ * - 表情头像 .lx-emoji-avatar（小圆角头像）
+ * - toolbar 自定义表情按钮 .ql-expression（替换文字为 emoji icon）
+ */
+
+/* 编辑器容器 —— 固定高度、圆角边框 */
 .lx-quill {
     height: 100px;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin: 20px;
+}
+
+/* 表情 Blot —— 内联展示，原子嵌入 */
+.lx-expression-blot {
+    display: inline-block;
+    vertical-align: baseline;
+    line-height: 1;
+
+    /* 表情文字 —— 继承编辑器字号 */
+    .lx-emoji-text {
+        font-size: inherit;
+    }
+
+    /* 表情头像 —— 24px 圆角小头像 */
+    .lx-emoji-avatar {
+        border-radius: 4px;
+        vertical-align: middle;
+        margin-left: 2px;
+    }
+}
+
+/* toolbar 自定义表情按钮 —— 替换默认文字为 emoji icon */
+.ql-expression {
+    /* 按钮内文字由 JS 在初始化后替换为 😀 */
 }

@@ -7,7 +7,10 @@
       "Bash(mkdir -p D:/lianxi/chatspace/src/store/slices/__tests__)",
       "Bash(mkdir -p D:/lianxi/chatspace/src/hooks/__tests__)",
       "Bash(npx vitest *)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(npm i *)",
+      "Bash(node -e \"const pkg = require\\('./package.json'\\); delete pkg.devDependencies['@rollup/rollup-win32-x64-msvc']; pkg.optionalDependencies = pkg.optionalDependencies || {}; pkg.optionalDependencies['@rollup/rollup-win32-x64-msvc'] = '^4.60.4'; console.log\\(JSON.stringify\\(pkg, null, 2\\)\\);\")",
+      "Read(//tmp/**)"
     ]
   }
 }

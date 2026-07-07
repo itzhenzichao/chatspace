@@ -1,0 +1,60 @@
+/**
+ * EmojiPicker 样式 —— 表情选择面板的外观定义
+ *
+ * 包含：
+ * - 面板整体容器样式
+ * - 分类区块样式（标题 + grid）
+ * - 单个 emoji 格子样式（hover 高亮）
+ */
+
+/* 面板内容区 —— 固定宽度，可滚动 */
+.lx-emoji-picker-content {
+  width: 320px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* 分类区块 —— 每个分类有标题和 grid */
+.lx-emoji-category {
+  margin-bottom: 8px;
+
+  /* 分类标题 —— 小字灰色 */
+  .lx-emoji-category-label {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 4px;
+  }
+}
+
+/* emoji grid —— CSS Grid 布局，每行 8 个 */
+.lx-emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 2px;
+}
+
+/* 单个 emoji 格子 —— 可点击按钮样式 */
+.lx-emoji-item {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+
+  /* hover 时浅灰背景 */
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+/* 网络图片表情格子 —— img 居中显示，圆角 */
+.lx-emoji-image-item img {
+  border-radius: 4px;
+  object-fit: cover;
+}
